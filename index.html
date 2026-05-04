@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+        @import "tailwindcss";
+
+        @layer base {
+            :root {
+                --color-ink: #f4e6a1;
+                --color-sky-soft: #030303;
+                --color-sand: #0f0f0f;
+                --color-accent: #d4af37;
+                --color-accent-dark: #b88a1b;
+            }
+        }
+    </style>
+</head>
+<body class="flex min-h-screen items-center justify-center bg-(--color-sky-soft) text-(--color-ink)">
+    <main class="mx-auto flex w-full max-w-5xl items-center justify-center rounded-2xl border-2 border-(--color-accent) p-2 sm:rounded-3xl sm:border-4 sm:p-3 md:border-[6px] md:p-4 lg:p-6">
+        <section class="w-full rounded-xl bg-(--color-sand) p-4 shadow-xl ring-1 ring-(--color-ink)/10 sm:rounded-2xl sm:p-5 md:p-6 lg:p-8">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-(--color-accent-dark) sm:text-sm">¿Jedai estás listo?</p>
+            <h1 class="mb-5 text-xl font-bold leading-tight sm:mb-6 sm:text-2xl md:text-3xl lg:text-4xl">Citas de Start War</h1>
+
+            <div class="rounded-xl bg-black/30 p-4 ring-1 ring-(--color-ink)/20 sm:p-5 md:p-6">
+                <p class="text-sm text-(--color-ink)/70">Cita: <span id="posicion" class="font-bold text-(--color-ink)">1 / 5</span></p>
+                <blockquote id="cita" class="mt-3 min-h-16 text-base leading-relaxed text-(--color-ink) sm:min-h-20 sm:text-lg md:text-xl"></blockquote>
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <button
+                    type="button"
+                    onclick="disminuirPosicion()"
+                    class="rounded-xl bg-(--color-accent-dark) px-4 py-1.5 font-semibold text-white transition hover:scale-105 hover:brightness-125 hover:shadow-[0_0_12px_var(--color-accent)] active:scale-95 focus:outline-none focus:ring-2 focus:ring-(--color-accent-dark)/40 focus:ring-offset-2 sm:py-2"
+                >
+                    Disminuir
+                </button>
+
+                <button
+                    type="button"
+                    onclick="aumentarPosicion()"
+                    class="rounded-xl bg-(--color-accent) px-4 py-1.5 font-semibold text-white transition hover:scale-105 hover:brightness-125 hover:shadow-[0_0_12px_var(--color-accent)] active:scale-95 focus:outline-none focus:ring-2 focus:ring-(--color-accent)/40 focus:ring-offset-2 sm:py-2"
+                >
+                    Aumentar
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const citas = [
+            "Hazlo o no lo hagas, pero no lo intentes. - Yoda",
+            "Que la Fuerza te acompane. - Obi-Wan Kenobi",
+            "En una galaxia muy, muy lejana...",
+            "Tu falta de fe resulta molesta. - Darth Vader",
+            "El miedo es el camino hacia el Lado Oscuro. - Yoda"
+        ];
+
+        // Variable global que guarda la posicion actual.
+        let posicionActual = 0;
+
+        function mostrarCita() {
+            const posicion = document.getElementById("posicion");
+            const cita = document.getElementById("cita");
+
+            posicion.textContent = `${posicionActual + 1} / ${citas.length}`;
+            cita.textContent = citas[posicionActual];
+            console.log(`Cita ${posicionActual + 1}/${citas.length}: ${citas[posicionActual]}`);
+        }
+
+        function aumentarPosicion() {
+            posicionActual = (posicionActual + 1) % citas.length;
+            mostrarCita();
+        }
+
+        function disminuirPosicion() {
+            posicionActual = (posicionActual - 1 + citas.length) % citas.length;
+            mostrarCita();
+        }
+
+        mostrarCita();
+    </script>
+</body>
+</html>
